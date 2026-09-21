@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Payment</title>
+</head>
+<body>
+
+<h2>Test Payment</h2>
+
+<button id="pay-button">Pay ₹1</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+    document.getElementById("pay-button").onclick = async function () {
+
+        // Step 1: ask our backend to create a Razorpay order
+        const response = await fetch("http://localhost:8082/payments",
+            {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(
+                    {
+                        amount: 100,
+                        currency: "INR"
+                    }
+                )
+            });
+
+        const payment = await response.json();
+
+        // Step 2: open Razorpay Checkout
+        const options = {
+            key: "rzp_test_TenJBv0AXrifb1",
+
+            amount: payment.amount,
+            currency: payment.currency,
+
+            name: "Nidhi Payment Demo",
+            description: "Test Payment",
+
+            order_id: payment.providerOrderId,
+
+            handler: function (response) {
+                console.log("Payment successful");
+                console.log(response);created_at
+            }
+        };
+
+        const razorpay = new Razorpay(options);
+
+        razorpay.open();
+    };
+
+</script>
+
+</body>
+</html>
