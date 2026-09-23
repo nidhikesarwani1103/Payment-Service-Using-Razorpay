@@ -3,6 +3,7 @@ package dev.nidhi.paymentservice.clients;
 import dev.nidhi.paymentservice.configs.RazorpayConfig;
 import dev.nidhi.paymentservice.dtos.RazorpayCreateOrderRequest;
 import dev.nidhi.paymentservice.dtos.RazorpayCreateOrderResponse;
+import dev.nidhi.paymentservice.dtos.RazorpayPaymentsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -34,5 +35,17 @@ public class RazorpayClient {
                 .body(razorpayCreateOrderRequest)
                 .retrieve()
                 .body(RazorpayCreateOrderResponse.class);
+    }
+
+    public RazorpayPaymentsResponse getPaymentsForOrder(String providerOrderId){
+        return restClient
+                .get()
+                .uri("/v1/orders/{orderId}/payments", providerOrderId)
+                .headers(httpHeaders ->
+                        httpHeaders.setBasicAuth(
+                                razorpayConfig.getKeyId(),
+                                razorpayConfig.getKeySecret()))
+                .retrieve()
+                .body(RazorpayPaymentsResponse.class);
     }
 }

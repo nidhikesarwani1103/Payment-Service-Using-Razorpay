@@ -13,4 +13,5 @@ public class RazorpayConfig {
     private String baseUrl;
     private String keyId;
     private String keySecret;
+    private String webhookSecret;
 }

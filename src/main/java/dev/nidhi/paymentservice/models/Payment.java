@@ -37,4 +37,5 @@ public class Payment {
     private Instant createdAt;
 
     private Instant updatedAt;
+    private Instant expiresAt;
 }
