@@ -85,7 +85,6 @@ PaymentReconciliationJob
 * MySQL
 * Razorpay Test Mode
 * Ngrok for local webhook development
-* OAuth2/JWT integration with the project's Authorization Server
 * Micrometer/Spring scheduling infrastructure
 
 ---
