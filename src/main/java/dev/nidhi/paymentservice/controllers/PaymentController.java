@@ -36,4 +36,9 @@ public class PaymentController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Hello from Payment Service");
+    }
 }
